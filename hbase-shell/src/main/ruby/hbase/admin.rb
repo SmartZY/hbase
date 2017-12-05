@@ -330,7 +330,7 @@ module Hbase
         htd.setOwnerString(arg.delete(OWNER)) if arg[OWNER]
         htd.setMaxFileSize(JLong.valueOf(arg.delete(MAX_FILESIZE))) if arg[MAX_FILESIZE]
         htd.setReadOnly(JBoolean.valueOf(arg.delete(READONLY))) if arg[READONLY]
-        htd.setCompactionEnabled(JBoolean.valueOf(arg[COMPACTION_ENABLED])) if arg[COMPACTION_ENABLED]
+        htd.setCompactionEnabled(JBoolean.valueOf(arg.delete[COMPACTION_ENABLED])) if arg[COMPACTION_ENABLED]
         htd.setMemStoreFlushSize(JLong.valueOf(arg.delete(MEMSTORE_FLUSHSIZE))) if arg[MEMSTORE_FLUSHSIZE]
         # DEFERRED_LOG_FLUSH is deprecated and was replaced by DURABILITY.  To keep backward compatible, it still exists.
         # However, it has to be set before DURABILITY so that DURABILITY could overwrite if both args are set
@@ -342,6 +342,8 @@ module Hbase
           end
         end
         htd.setDurability(org.apache.hadoop.hbase.client.Durability.valueOf(arg.delete(DURABILITY))) if arg[DURABILITY]
+        htd.setFlushPolicyClassName(arg.delete(FLUSH_POLICY)) if arg[FLUSH_POLICY]
+        htd.setRegionSplitPolicyClassName(arg.delete(SPLIT_POLICY)) if arg[SPLIT_POLICY]
         parse_htd_args(htd, arg)
         set_user_metadata(htd, arg.delete(METADATA)) if arg[METADATA]
         set_descriptor_config(htd, arg.delete(CONFIGURATION)) if arg[CONFIGURATION]
@@ -598,7 +600,7 @@ module Hbase
         htd.setOwnerString(arg.delete(OWNER)) if arg[OWNER]
         htd.setMaxFileSize(JLong.valueOf(arg.delete(MAX_FILESIZE))) if arg[MAX_FILESIZE]
         htd.setReadOnly(JBoolean.valueOf(arg.delete(READONLY))) if arg[READONLY]
-        htd.setCompactionEnabled(JBoolean.valueOf(arg[COMPACTION_ENABLED])) if arg[COMPACTION_ENABLED]
+        htd.setCompactionEnabled(JBoolean.valueOf(arg.delete[COMPACTION_ENABLED])) if arg[COMPACTION_ENABLED]
         parse_htd_args(htd, arg)
         htd.setMemStoreFlushSize(JLong.valueOf(arg.delete(MEMSTORE_FLUSHSIZE))) if arg[MEMSTORE_FLUSHSIZE]
         # DEFERRED_LOG_FLUSH is deprecated and was replaced by DURABILITY.  To keep backward compatible, it still exists.
@@ -611,6 +613,8 @@ module Hbase
           end
         end
         htd.setDurability(org.apache.hadoop.hbase.client.Durability.valueOf(arg.delete(DURABILITY))) if arg[DURABILITY]
+        htd.setFlushPolicyClassName(arg.delete(FLUSH_POLICY)) if arg[FLUSH_POLICY]
+        htd.setRegionSplitPolicyClassName(arg.delete(SPLIT_POLICY)) if arg[SPLIT_POLICY]
         htd.setRegionReplication(JInteger.valueOf(arg.delete(REGION_REPLICATION))) if arg[REGION_REPLICATION]
         set_user_metadata(htd, arg.delete(METADATA)) if arg[METADATA]
         set_descriptor_config(htd, arg.delete(CONFIGURATION)) if arg[CONFIGURATION]
